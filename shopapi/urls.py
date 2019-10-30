@@ -1,12 +1,10 @@
-from django.contrib import admin
 from django.urls import path, include
-from rest_framework import routers
 from shopapi import views
 
-router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'groups', views.GroupViewSet)
+from shopapi.views import ProductListView, DetailView
 
+app_name = 'shopapi'
 urlpatterns = [
-    path('', include(router.urls)),
+    path('product_list/', ProductListView.as_view(), name='product_list'),
+    path('product_detail/<int:pk>/', DetailView.as_view(), name='product_detail')
 ]

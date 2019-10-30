@@ -17,10 +17,9 @@ from django.contrib import admin
 from django.urls import path, include
 from shopapi import views
 
-from shopapi.views import index
 
+app_name = 'shopapi'
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('shopapi.urls')),
-    path('index/', views.index, name='index'),
+    path('', include('shopapi.urls')),
 ]

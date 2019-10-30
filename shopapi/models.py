@@ -8,7 +8,13 @@ class Product(models.Model):
     quantity = models.IntegerField(blank=False)
     added = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.name
+
 
 class Category(models.Model):
     name = models.CharField(max_length=64)
     added = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name

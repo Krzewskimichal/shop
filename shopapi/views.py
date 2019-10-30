@@ -1,28 +1,27 @@
 from django.contrib.auth.models import User, Group
-from rest_framework import viewsets
-from .serializers import UserSerializer, GroupSerializer
-
-from django.http import HttpResponse
+from .models import *
+from django.views import View, generic
 
 
-class UserViewSet(viewsets.ModelViewSet):
+class ProductListView(generic.ListView):
     """
-    endpoint allow Users to be viewed or edited
+    List of products
     """
-    queryset = User.objects.all().order_by('-date_joined')
-    serializer_class = UserSerializer
+    # normal View
+    # def get(self, request):
+    #     product_list = Product.objects.all()
+    #     data = {
+    #         'product_list': product_list
+    #     }
+    #     return render(request, 'shopapi/index.html', data)
+
+    model = Product
+    template_name = 'shopapi/index.html'
 
 
-class GroupViewSet(viewsets.ModelViewSet):
+class DetailView(generic.DetailView):
     """
-    endpoint allows Groups to be viewed or edited
+    Get pk from url and return product details
     """
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
-
-
-def index(request):
-    return HttpResponse("hello kuba")
-
-
-
+    model = Product
+    template_name = 'shopapi/product_detail.html'
