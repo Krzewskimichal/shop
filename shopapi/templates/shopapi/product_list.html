@@ -1,7 +1,9 @@
 {% extends 'shopapi/base.html' %}
 {% block content %}
     <h1>Products</h1>
-    <table>
+    <div class="table-responsive">
+    {% if product_list %}
+    <table class="table">
         <thead>
             <tr>
                 <th>Name</th>
@@ -11,9 +13,9 @@
             </tr>
         </thead>
         <tbody>
-        {% if object_list %}
+
             <tr>
-            {% for i in object_list %}
+            {% for i in product_list %}
 
                 <td><a href="{% url 'shopapi:product_detail' i.id %}">{{ i }}</a></td>
                 <td>{{ i.price }}</td>
@@ -28,7 +30,8 @@
             {% endfor %}
         </tbody>
     </table>
-        {% else %}
+    </div>
+    {% else %}
     <p>No products here.</p>
-        {% endif %}
+    {% endif %}
 {% endblock %}

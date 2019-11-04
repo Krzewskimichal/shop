@@ -1,22 +1,20 @@
 from django.contrib.auth.models import User, Group
 from .models import *
 from django.views import View, generic
+from django.shortcuts import render
+from django.http import HttpRequest
 
 
-class ProductListView(generic.ListView):
+class ProductListView(View):
     """
     List of products
     """
-    # normal View
-    # def get(self, request):
-    #     product_list = Product.objects.all()
-    #     data = {
-    #         'product_list': product_list
-    #     }
-    #     return render(request, 'shopapi/index.html', data)
-
-    model = Product
-    template_name = 'shopapi/index.html'
+    def get(self, request, category):
+        data = Product.objects.filter(category=category)
+        product_list = {
+            'product_list': data
+        }
+        return render(request, 'shopapi/product_list.html', context=product_list)
 
 
 class DetailView(generic.DetailView):
@@ -25,3 +23,9 @@ class DetailView(generic.DetailView):
     """
     model = Product
     template_name = 'shopapi/product_detail.html'
+
+
+class MainSiteView(View):
+
+    def get(self, request):
+        return render(request, 'shopapi/main_site.html')
