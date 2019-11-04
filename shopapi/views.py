@@ -10,7 +10,8 @@ class ProductListView(View):
     List of products
     """
     def get(self, request, category):
-        data = Product.objects.filter(category=category)
+        category = Category.objects.get(name=category)
+        data = Product.objects.filter(category=category.id)
         product_list = {
             'product_list': data
         }

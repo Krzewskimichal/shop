@@ -13,9 +13,11 @@
 <body>
     <header>
         <div class="row">
-            <img class="img-fluid mx-auto" src="{% static 'shopapi/raccoon.jpg' %}" alt="raccon">
+            <a class="img-fluid mx-auto" href="{% url 'shopapi:main_site' %}">
+                <img src="{% static 'shopapi/raccoon.jpg' %}" alt="raccon">
+            </a>
         </div>
-        <nav class="navbar navbar-expand-sm bg-dark justify-content-center">
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark justify-content-center">
             <ul class="navbar-nav">
                 {% for i in category %}
                 <li class="nav-item">
