@@ -1,28 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Product detail</title>
-</head>
-<body>
-    <h1>{{ object }}</h1>
-    <table>
-        <tr>
-            <td>name</td>
-            <td>{{ object.name }}</td>
-        </tr>
-        <tr>
-            <td>price</td>
-            <td>{{ object.price }} zl/kg</td>
-        </tr>
-        <tr>
-            <td>quantity</td>
-            <td>{{ object.quantity }} kg</td>
-        </tr>
-        <tr>
-            <td>category</td>
-            <td>{{ object.category }}</td>
-        </tr>
-    </table>
-</body>
-</html>
+{% extends 'shopapi/base.html' %}
+{% block content %}
+<h1>{{ object }}</h1>
+<table>
+    <tr>
+        <td>name</td>
+        <td>{{ object.name }}</td>
+    </tr>
+    <tr>
+        <td>price</td>
+        <td>{{ object.price }} zl/kg</td>
+    </tr>
+    <tr>
+        <td>quantity</td>
+        <td>{{ object.quantity }} kg</td>
+    </tr>
+    <tr>
+        <td>category</td>
+        <td>{{ object.category }}</td>
+    </tr>
+</table>
+{% endblock %}

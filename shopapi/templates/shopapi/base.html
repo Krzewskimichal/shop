@@ -9,21 +9,47 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'shopapi/css/base.css' %}">
 </head>
 <body>
     <header>
         <div class="row">
             <a class="img-fluid mx-auto" href="{% url 'shopapi:main_site' %}">
-                <img src="{% static 'shopapi/raccoon.jpg' %}" alt="raccon">
+                <img class="center" width="80%" src="{% static 'shopapi/raccoon.jpg' %}" alt="raccon">
             </a>
         </div>
-        <nav class="navbar navbar-expand-sm bg-dark navbar-dark justify-content-center">
+        <!-- navbar -->
+        <nav class="text-white navbar navbar-expand-sm bg-dark navbar-dark justify-content-center">
             <ul class="navbar-nav">
-                {% for i in category %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'shopapi:product_list' i %}">{{ i }}</a>
+                <li class="nav-item dropdown" >
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown">
+                        Category
+                    </a>
+                    <div class="text-white dropdown-menu">
+                        {% for i in category %}
+                            <a class="dropdown-item" href="{% url 'shopapi:product_list' i.name %}">{{ i.name }}</a>
+                        {% endfor %}
+                    </div>
                 </li>
-                {% endfor %}
+                {% if logged %}
+                <li class="nav-item">
+                    <a class="text-white nav-link" href="/">Hello {{ logged }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="text-white nav-link" href="{% url 'shopapi:logout' %}">Logout</a>
+                </li>
+                {% else %}
+                <li>
+                    <form class="form-inline" action="{% url 'shopapi:login' %}" method="POST">
+                        {% csrf_token %}
+                        {{ login_form }}
+                        <input class="form-control" type="submit" value="Sign in">
+                    </form>
+                </li>
+                <li class="nav-item">
+                    <a class="text-white nav-link" href="{% url 'shopapi:register' %}">Register</a>
+                </li>
+                {% endif %}
             </ul>
         </nav>
     </header>
