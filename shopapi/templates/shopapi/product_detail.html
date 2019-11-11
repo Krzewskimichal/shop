@@ -8,15 +8,21 @@
     </tr>
     <tr>
         <td>price</td>
-        <td>{{ object.price }} zl/kg</td>
+        <td>{{ object.price }}{% if object.category.name == 'vegetables' %} zl/kg{% else %}{% endif %}</td>
     </tr>
     <tr>
         <td>quantity</td>
-        <td>{{ object.quantity }} kg</td>
+        <td>{{ object.quantity }}{% if object.category.name == 'vegetables' %} kg{% else %}{% endif %}</td>
     </tr>
     <tr>
         <td>category</td>
         <td>{{ object.category }}</td>
     </tr>
 </table>
+<form action="{% url 'shopapi:add_cart_item' %}" method="POST">
+    {% csrf_token %}
+    <input name='product' type="text" value="{{ object.name }}" hidden>
+    <input name='quantity' type="number" value="1">
+    <input class="btn bg-dark text-white" type="submit" value="Add to cart">
+</form>
 {% endblock %}

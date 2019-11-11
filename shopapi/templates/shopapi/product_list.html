@@ -9,7 +9,7 @@
                 <th>Name</th>
                 <th>Price</th>
                 <th>Category</th>
-                <th>Available</th>
+                <th>Quantity</th>
             </tr>
         </thead>
         <tbody>
@@ -20,12 +20,9 @@
                 <td><a href="{% url 'shopapi:product_detail' i.id %}">{{ i }}</a></td>
                 <td>{{ i.price }}</td>
                 <td>{{ i.category }}</td>
-                {% if i.quantity > 0 %}
-                <td>Yes</td>
-                {% else %}
-                <td>No</td>
-
-                {% endif %}
+                <td>{{ i.quantity }}</td>
+                <td><a href="{% url 'shopapi:product_detail' i.id %}"><button class="btn bg-dark text-white">Buy
+                </button></a></td>
             </tr>
             {% endfor %}
         </tbody>

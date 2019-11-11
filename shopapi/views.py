@@ -64,6 +64,11 @@ class RegisterView(View):
 
 
 def login_view(request):
+    """
+    user login
+    :param request:
+    :return: redirect to main site
+    """
     form = LoginForm(request.POST)
     if form.is_valid():
         username = request.POST.get('username')
@@ -74,5 +79,33 @@ def login_view(request):
 
 
 def logout_view(request):
+    """
+    user logout
+    :param request:
+    :return: redirect to main site
+    """
     logout(request)
     return redirect('/')
+
+
+def add_cart_item(request):
+    """
+    add item to cart
+    :param request
+    :return:
+    """
+    product = request.POST.get("product")
+    product = Product.objects.get(name=product)
+    quantity = request.POST.get("quantity")
+    item = CartItemModel(quantity=quantity)
+    item.save()
+    item.product.add(product)
+    return redirect("../")
+
+
+class CartView(View):
+    """
+    handling cart
+    """
+    def get(self, request):
+        data = CartItemModel.objects.filter()
