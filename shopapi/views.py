@@ -3,7 +3,7 @@ from .models import *
 from django.views import View, generic
 from django.shortcuts import render, redirect
 from django.http import HttpRequest
-from .forms import RegisterForm, LoginForm
+from .forms import RegisterForm, LoginForm, AddToCartForm
 from django.contrib.auth import login, authenticate, logout
 
 
@@ -20,12 +20,18 @@ class ProductListView(View):
         return render(request, 'shopapi/product_list.html', context=product_list)
 
 
-class DetailView(generic.DetailView):
+class DetailView(View):
     """
     Get pk from url and return product details
     """
-    model = Product
-    template_name = 'shopapi/product_detail.html'
+    def get(self, request, pk):
+        data = Product.objects.get(id=pk)
+        form = AddToCartForm()
+        data = {
+            'product_detail': data,
+            'form': form,
+        }
+        return render(request, 'shopapi/product_detail.html', data)
 
 
 class MainSiteView(View):
@@ -88,24 +94,33 @@ def logout_view(request):
     return redirect('/')
 
 
-def add_cart_item(request):
-    """
-    add item to cart
-    :param request
-    :return:
-    """
-    product = request.POST.get("product")
-    product = Product.objects.get(name=product)
-    quantity = request.POST.get("quantity")
-    item = CartItemModel(quantity=quantity)
-    item.save()
-    item.product.add(product)
-    return redirect("../")
-
-
 class CartView(View):
     """
-    handling cart
+    Display cart of current logged user
     """
     def get(self, request):
-        data = CartItemModel.objects.filter()
+        if request.user.is_authenticated:
+            user = request.user
+            products_in_cart = Cart.objects.filter(user=user)
+            products_in_cart = {
+                'products_in_cart': products_in_cart,
+            }
+            return render(request, 'shopapi/cart.html', products_in_cart)
+        else:
+            pass
+
+    """
+    get data from DetailView and store in to database
+    """
+    def post(self, request):
+        amount = request.POST.get('amount')
+        product_name = request.POST.get('product')
+        product = Product.objects.get(name=product_name)
+        next_url = product.category
+        if request.user.is_authenticated:
+            user = request.user
+            item = Cart(user=user, product=product, amount=amount)
+            item.save()
+            return redirect(f"../product_list/{next_url}")
+        else:
+            pass

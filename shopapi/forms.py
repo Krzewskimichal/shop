@@ -1,6 +1,5 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import CartItemModel
 
 
 class RegisterForm(forms.Form):
@@ -11,13 +10,25 @@ class RegisterForm(forms.Form):
 
 
 class LoginForm(forms.Form):
-    username = forms.CharField(max_length=128, required=True, label='username', widget=forms.TextInput(
+    username = forms.CharField(max_length=128, label='', required=True, widget=forms.TextInput(
         attrs={
             "class": "form-control mr-sm-2",
+            "placeholder": "username",
         }
     ))
-    password = forms.CharField(label='password', required=True, widget=forms.PasswordInput(
+    password = forms.CharField(required=True, label='', widget=forms.PasswordInput(
         attrs={
             "class": "form-control mr-sm-2",
+            "placeholder": "password",
+        }
+    ))
+
+
+class AddToCartForm(forms.Form):
+    amount = forms.IntegerField(required=True, label='', widget=forms.NumberInput(
+        attrs={
+            "class": "form-control mr-sm-2",
+            "value": 1
+
         }
     ))

@@ -18,6 +18,7 @@
                 <img class="center" width="80%" src="{% static 'shopapi/raccoon.jpg' %}" alt="raccon">
             </a>
         </div>
+
         <!-- navbar -->
         <nav class="text-white navbar navbar-expand-sm bg-dark navbar-dark justify-content-center">
             <ul class="navbar-nav">
@@ -50,8 +51,12 @@
                     <a class="text-white nav-link" href="{% url 'shopapi:register' %}">Register</a>
                 </li>
                 {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'shopapi:cart' %}">cart[{{ amount_count_item }}]</a>
+                </li>
             </ul>
         </nav>
+
     </header>
     <div class="container">
         {% block content %}{% endblock %}

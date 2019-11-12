@@ -21,16 +21,8 @@ class Category(models.Model):
         return self.name
 
 
-class CartItemModel(models.Model):
-    product = models.ManyToManyField(Product)
-    quantity = models.IntegerField(default=1)
+class Cart(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    amount = models.IntegerField()
     date = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.product.name
-
-
-class CartModel(models.Model):
-    product = models.ManyToManyField(CartItemModel)
-    total = models.DecimalField(max_digits=100, decimal_places=2)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)

@@ -1,8 +1,7 @@
 from django.urls import path, include, re_path
 from shopapi import views
 
-from shopapi.views import ProductListView, DetailView, MainSiteView, RegisterView, logout_view, login_view, \
-    add_cart_item
+from shopapi.views import ProductListView, DetailView, MainSiteView, RegisterView, logout_view, login_view, CartView
 
 app_name = 'shopapi'
 urlpatterns = [
@@ -12,5 +11,7 @@ urlpatterns = [
     path('register/', RegisterView.as_view(), name='register'),
     path('logout/', logout_view, name='logout'),
     path('login/', login_view, name='login'),
-    path('add_cart_item/', views.add_cart_item, name='add_cart_item'),
+    path('cart/', CartView.as_view(), name='cart'),
+    # for testing
+    path('test/', CartView.as_view(), name='test'),
 ]
