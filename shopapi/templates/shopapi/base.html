@@ -12,57 +12,86 @@
     <link rel="stylesheet" type="text/css" href="{% static 'shopapi/css/base.css' %}">
 </head>
 <body>
-    <header>
-        <div class="row">
-            <a class="img-fluid mx-auto" href="{% url 'shopapi:main_site' %}">
-                <img class="center" width="80%" src="{% static 'shopapi/raccoon.jpg' %}" alt="raccon">
-            </a>
-        </div>
+    <!-- navbar -->
+    <nav class="navbar fixed-top navbar-expand-sm bg-dark justify-content-center text-white">
+        <ul class="navbar-nav">
+            <li class="sm-s-6">
+                <a class="img-fluid mx-auto" href="{% url 'shopapi:main_site' %}">
+                <img class="center" width="20%" src="{% static 'shopapi/raccoon.jpg' %}" alt="raccon">
+               </a>
+            </li>
+            <li class="nav-item dropdown" >
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown">
+                    Category
+                </a>
+                <div class="text-white dropdown-menu">
+                    {% for i in category %}
+                        <a class="dropdown-item" href="{% url 'shopapi:product_list' i.name %}">{{ i.name }}</a>
+                    {% endfor %}
+                </div>
+            </li>
+            {% if logged %}
+            <li class="nav-item">
+                <a class="text-white nav-link" href="{% url 'shopapi:profile' %}">Hello {{ logged }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="text-white nav-link" href="{% url 'shopapi:logout' %}">Logout</a>
+            </li>
+            {% else %}
+            <li>
+                <form class="form-inline" action="{% url 'shopapi:login' %}" method="POST">
+                    {% csrf_token %}
+                    {{ login_form }}
+                    <input class="form-control" type="submit" value="Sign in">
+                </form>
+            </li>
+            <li class="nav-item">
+                <a class="text-white nav-link" href="{% url 'shopapi:register' %}">Register</a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'shopapi:cart' %}">cart[{{ amount_count_item }}]</a>
+            </li>
+            <li class="nav-item">
+                <form class="form-inline sm-2 sm-md-0">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search product">
+                    <button class="btn text-dark bg-white" type="submit">Search</button>
+                </form>
+            </li>
+        </ul>
+    </nav>
 
-        <!-- navbar -->
-        <nav class="text-white navbar navbar-expand-sm bg-dark navbar-dark justify-content-center">
-            <ul class="navbar-nav">
-                <li class="nav-item dropdown" >
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown">
-                        Category
-                    </a>
-                    <div class="text-white dropdown-menu">
-                        {% for i in category %}
-                            <a class="dropdown-item" href="{% url 'shopapi:product_list' i.name %}">{{ i.name }}</a>
-                        {% endfor %}
-                    </div>
-                </li>
-                {% if logged %}
-                <li class="nav-item">
-                    <a class="text-white nav-link" href="/">Hello {{ logged }}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="text-white nav-link" href="{% url 'shopapi:logout' %}">Logout</a>
-                </li>
-                {% else %}
-                <li>
-                    <form class="form-inline" action="{% url 'shopapi:login' %}" method="POST">
-                        {% csrf_token %}
-                        {{ login_form }}
-                        <input class="form-control" type="submit" value="Sign in">
-                    </form>
-                </li>
-                <li class="nav-item">
-                    <a class="text-white nav-link" href="{% url 'shopapi:register' %}">Register</a>
-                </li>
-                {% endif %}
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="{% url 'shopapi:cart' %}">cart[{{ amount_count_item }}]</a>
-                </li>
-            </ul>
-        </nav>
-
-    </header>
     <div class="container">
         {% block content %}{% endblock %}
     </div>
-    <footer>
+    <footer class="ftr-bottom page-footer bg-dark text-white">
+        <div class="container-fluid">
+            <div class="row p-3">
+                <div class="col-sm-6 p-3">
+                    {% lorem 35 w %}
+                </div>
+                <div class="col-sm-3">
+                    <ul>
+                        <li>{% lorem 2 w %}</li>
+                        <li>{% lorem 2 w %}</li>
+                        <li>{% lorem 2 w %}</li>
+                        <li>{% lorem 2 w %}</li>
+                        <li>{% lorem 2 w %}</li>
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <ul>
 
+                        <li>{% lorem 2 w %}</li>
+                        <li>{% lorem 2 w %}</li>
+                        <li>{% lorem 2 w %}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright text-center bg p-3" style="background-color: #232930">
+            © 2019 Copyright: <span class="font-italic">Shop&#8482</span>
+        </div>
     </footer>
 </body>
 </html>

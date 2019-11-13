@@ -1,28 +1,30 @@
 {% extends 'shopapi/base.html' %}
 {% block content %}
 <h1>{{ product_detail }}</h1>
-<table>
-    <tr>
-        <td>name</td>
-        <td>{{ product_detail.name }}</td>
-    </tr>
-    <tr>
-        <td>price</td>
-        <td>{{ product_detail.price }}{% if product_detail.category.name == 'vegetables' %} zl/kg{% else %}{% endif %}</td>
-    </tr>
-    <tr>
-        <td>quantity</td>
-        <td>{{ product_detail.quantity }}{% if product_detail.category.name == 'vegetables' %} kg{% else %}{% endif %}</td>
-    </tr>
-    <tr>
-        <td>category</td>
-        <td>{{ product_detail.category }}</td>
-    </tr>
-</table>
-<form action="{% url 'shopapi:cart' %}" method="POST">
-    {% csrf_token %}
-    <input name='product' type="text" value="{{ product_detail.name }}" hidden>
-    {{ form }}
-    <input class="btn bg-dark text-white" type="submit" value="Add to cart">
-</form>
+<div class="container">
+    <table>
+        <tr>
+            <td>name</td>
+            <td>{{ product_detail.name }}</td>
+        </tr>
+        <tr>
+            <td>price</td>
+            <td>{{ product_detail.price }}{% if product_detail.category.name == 'vegetables' %} zl/kg{% else %}{% endif %}</td>
+        </tr>
+        <tr>
+            <td>quantity</td>
+            <td>{{ product_detail.quantity }}{% if product_detail.category.name == 'vegetables' %} kg{% else %}{% endif %}</td>
+        </tr>
+        <tr>
+            <td>category</td>
+            <td>{{ product_detail.category }}</td>
+        </tr>
+    </table>
+    <form action="{% url 'shopapi:cart' %}" method="POST">
+        {% csrf_token %}
+        <input name='product' type="text" value="{{ product_detail.name }}" hidden>
+        {{ form }}
+        <input class="btn bg-dark text-white" type="submit" value="Add to cart">
+    </form>
+</div>
 {% endblock %}

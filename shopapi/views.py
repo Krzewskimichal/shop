@@ -134,14 +134,58 @@ class PaymentView(View):
         if request.user.is_authenticated:
             user = request.user
             cart = Cart.objects.filter(user=user)
+
+            #todo
+            if len(cart) == 0:
+                return redirect('error.html')
+
             products_ids = []
             products_amounts = []
+            products_prices = []
+            total = 0
+
             for i in cart:
                 products_ids.append(i.product.id)
                 products_amounts.append(i.amount)
+                products_prices.append(i.product.price)
+
+            # count price to pay
+            for price, amount in zip(products_prices, products_amounts):
+                total += price*amount
+
+            # save order
+            order = Order(user=user, products_ids=products_ids, price=total)
+            order.save()
+
+            # sub quantity of products in database
+            for i in cart:
+                product = Product.objects.get(id=i.product.id)
+                product.quantity -= i.amount
+                product.save()
+
+            # clear cart
+
+            cart.delete()
+
             data = {
                 'products_ids': products_ids,
                 'user': user,
                 'amount': products_amounts,
+                'products_prices': products_prices,
+                'total': total,
             }
-            return render(request, 'shopapi/test.html', data)
+
+            return render(request, 'shopapi/thankyou.html', data)
+
+
+# show information about user account
+class UserProfileView(View):
+
+    def get(self, request):
+        user = request.user
+        order = Order.objects.filter(user=user)
+        data = {
+            'user': user,
+            'order': order,
+        }
+        return render(request, 'shopapi/profile.html', data)

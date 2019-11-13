@@ -1,9 +1,18 @@
 {% extends 'shopapi/base.html' %}
 {% block content %}
 test
-{{ products_ids }}
-{{ product.price }}
-{{ product.category }}
-{{ user }}
-{{ amount }}
+
+<p>product ids: {{ products_ids }}</p>
+
+<p>product prices: {{ products_prices }}</p>
+
+<p>amount: {{ amount }}</p>
+
+<p>total: {{ total }}</p>
+
+<p>User: {{ user }}</p>
+
+<p>order id: {{ id }}</p>
+
+<p>return: {{ i }}</p>
 {% endblock %}

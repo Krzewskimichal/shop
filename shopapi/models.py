@@ -24,12 +24,12 @@ class Category(models.Model):
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    amount = models.IntegerField()
+    amount = models.FloatField(max_length=256)
     date = models.DateTimeField(auto_now=True)
 
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    products_id = models.CharField(blank=False, max_length=512)
-    price = models.IntegerField()
+    products_ids = models.CharField(blank=False, max_length=512)
+    price = models.FloatField()
     date = models.DateTimeField(auto_now=True)
