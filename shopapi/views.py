@@ -124,3 +124,24 @@ class CartView(View):
             return redirect(f"../product_list/{next_url}")
         else:
             pass
+
+
+class PaymentView(View):
+    """
+    handling paymant
+    """
+    def get(self, request):
+        if request.user.is_authenticated:
+            user = request.user
+            cart = Cart.objects.filter(user=user)
+            products_ids = []
+            products_amounts = []
+            for i in cart:
+                products_ids.append(i.product.id)
+                products_amounts.append(i.amount)
+            data = {
+                'products_ids': products_ids,
+                'user': user,
+                'amount': products_amounts,
+            }
+            return render(request, 'shopapi/test.html', data)

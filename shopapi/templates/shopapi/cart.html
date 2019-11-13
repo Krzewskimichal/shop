@@ -4,6 +4,7 @@
     <thead>
         <tr>
             <th>name</th>
+            <th>price</th>
             <th>amount</th>
             <th>date</th>
         </tr>
@@ -12,6 +13,7 @@
         {% for i in products_in_cart %}
         <tr>
             <td>{{ i.product.name }}</td>
+            <td>{{ i.product.price }} zl{% if i.product.category.name == 'vegetables' %}/kg{% endif %}</td>
             <td>{{ i.amount }}</td>
             <td>{{ i.date }}</td>
             <td><button class="btn text-white bg-dark">Remove</button></td>
@@ -19,5 +21,9 @@
         {% endfor %}
     </tbody>
 </table>
-<button class="btn text-white bg-dark">Pay</button>
+<p>
+    <a class="nav-link" href="{% url 'shopapi:payment' %}">
+        <button class="btn text-white bg-dark">Pay</button>
+    </a>
+</p>
 {% endblock %}
