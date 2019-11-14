@@ -1,8 +1,10 @@
 {% extends 'shopapi/base.html' %}
 {% block content %}
-<form method="POST" action="{% url 'shopapi:register' %}">
-    {% csrf_token %}
-    {{ register_form.as_p }}
-    <input type="submit" value="register">
-</form>
+<div class="container p-5 mt-5">
+    <form method="POST" action="{% url 'shopapi:register' %}">
+        {% csrf_token %}
+        {{ register_form.as_p }}
+        <input type="submit" value="register">
+    </form>
+</div>
 {% endblock %}

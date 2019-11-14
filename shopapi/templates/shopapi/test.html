@@ -1,18 +1,19 @@
 {% extends 'shopapi/base.html' %}
 {% block content %}
 test
+<div class="container p-5 mt-5">
+    <p>product ids: {{ products_ids }}</p>
 
-<p>product ids: {{ products_ids }}</p>
+    <p>product prices: {{ products_prices }}</p>
 
-<p>product prices: {{ products_prices }}</p>
+    <p>amount: {{ amount }}</p>
 
-<p>amount: {{ amount }}</p>
+    <p>total: {{ total }}</p>
 
-<p>total: {{ total }}</p>
+    <p>User: {{ user }}</p>
 
-<p>User: {{ user }}</p>
+    <p>order id: {{ id }}</p>
 
-<p>order id: {{ id }}</p>
-
-<p>return: {{ i }}</p>
+    <p>return: {{ i }}</p>
+</div>
 {% endblock %}

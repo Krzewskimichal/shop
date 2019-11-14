@@ -1,28 +1,30 @@
 {% extends 'shopapi/base.html' %}
 {% block content %}
-<h1>{{ user }}</h1>
+<div class="container p-5 mt-5">
+    <h1>{{ user }}</h1>
 
-<p>Username: {{ user }}</p>
-<p>email: {{ user.email }}</p>
-<p>account created: {{ user.date_joined }}</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Order ID</th>
-            <th>Price</th>
-            <th>Date</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for i in order %}
-        <tr>
-            <td>{{ i.id }}</td>
-            <td>{{ i.price }}</td>
-            <td>{{ i.date }}</td>
-            <td><a><button class="btn text-white bg-dark">Details</button></a></td>
-            <td><a><button class="btn text-white bg-dark">Delete</button></a></td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+    <p>Username: {{ user }}</p>
+    <p>email: {{ user.email }}</p>
+    <p>account created: {{ user.date_joined }}</p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Price</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in order %}
+            <tr>
+                <td>{{ i.id }}</td>
+                <td>{{ i.price }}</td>
+                <td>{{ i.date }}</td>
+                <td><a><button class="btn text-white bg-dark">Details</button></a></td>
+                <td><a><button class="btn text-white bg-dark">Delete</button></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

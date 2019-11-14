@@ -1,5 +1,6 @@
 {% extends 'shopapi/base.html' %}
 {% block content %}
+<div class="container p-5 mt-5">
     <h1>{{ product_list.0.category }}</h1>
     <div class="table-responsive">
     {% if product_list %}
@@ -31,4 +32,5 @@
     {% else %}
     <p>No products here.</p>
     {% endif %}
+</div>
 {% endblock %}
